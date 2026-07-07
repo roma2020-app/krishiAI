@@ -1,80 +1,49 @@
 import sqlite3
+from datetime import datetime
 
-conn=sqlite3.connect(
+conn = sqlite3.connect(
     "database/app.db",
     check_same_thread=False
 )
 
-cursor=conn.cursor()
+cursor = conn.cursor()
 
 cursor.execute("""
-
 CREATE TABLE IF NOT EXISTS tickets(
-
-id INTEGER PRIMARY KEY,
-
-farmer TEXT,
-
-problem TEXT,
-
-status TEXT
-
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    farmer TEXT,
+    problem TEXT,
+    status TEXT
 )
-
 """)
 
 conn.commit()
 
-def create_ticket(
-    farmer,
-    problem
-):
-    """
-    Create RSK support ticket.
-    """
+
+def create_ticket(farmer, problem):
 
     cursor.execute(
-
         """
-
-        INSERT INTO tickets(
-
-        farmer,
-
-        problem,
-
-        status
-
-        )
-
-        VALUES(
-
-        ?,
-
-        ?,
-
-        ?
-
-        )
-
-        """,
-
-        (
-
+        INSERT INTO tickets (
             farmer,
-
             problem,
-
-            "Pending"
-
+            status
         )
-
+        VALUES (?, ?, ?)
+        """,
+        (
+            farmer,
+            problem,
+            "Pending"
+        )
     )
 
     conn.commit()
 
-    return{
+    ticket_id = cursor.lastrowid
 
-        "status":"Created"
-
+    return {
+        "ticket_id": ticket_id,
+        "status": "Created",
+        "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
