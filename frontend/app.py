@@ -528,9 +528,27 @@ elif page == "📷 Disease Detection":
 
             if st.button("📞 Send to Rythu Seva Kendra"):
 
-                st.success(
-                    "Ticket successfully created and forwarded to the nearest RSK."
-                )
+             with st.spinner("Creating RSK ticket..."):
+
+                ticket_response = create_rsk_ticket(result)
+
+
+            st.success("✅ Ticket Created Successfully")
+
+            st.write(
+                    "Your crop disease report has been forwarded to Rythu Seva Kendra."
+                    )
+
+
+            st.info(
+                     f"""
+                         🎫 Ticket ID: {ticket_response['ticket_id']}
+
+                             Status: {ticket_response['status']}
+
+                             Created At: {ticket_response['created_at']}
+                      """
+                    )
 # =====================================================
 # MARKET PAGE
 # =====================================================
