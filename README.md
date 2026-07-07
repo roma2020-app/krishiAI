@@ -387,6 +387,10 @@ Farmer
 </p>
 
 <p align="center">
+<img src="images/Ticket_creation.png" width="45%">
+</p>
+
+<p align="center">
 <img src="images/Market_price.png" width="45%">
 <img src="images/Govt.Scheme.png" width="45%">
 </p>
