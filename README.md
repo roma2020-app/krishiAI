@@ -370,16 +370,10 @@ Farmer
 
 # 📸 Screenshots
 
-Add screenshots here.
+./images/screenshot.png
+./images/Crop_Recommendation.png
 
-```
-images/dashboard.png
 
-images/weather.png
-
-images/crop.png
-
-images/disease.png
 ```
 
 ---
