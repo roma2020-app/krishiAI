@@ -1,0 +1,275 @@
+Add voice input to my existing Streamlit app.
+
+Do not modify any existing features.
+
+Tasks:
+
+1. Install and use streamlit-mic-recorder.
+
+2. Add a microphone button beside the chat input.
+
+3. Record farmer speech.
+
+4. Convert recorded audio into text.
+
+5. Put the text into the existing chat.
+
+6. Send the text to my existing router.
+
+Do not change router.py.
+
+Do not change crop_tool.py.
+
+Modify only frontend/app.py.
+
+Return complete code.
+
+###
+2
+My voice input is working.
+
+Now add voice output.
+
+Use gTTS.
+
+Convert every AI response into speech.
+
+Play audio below the response.
+
+Do not modify any existing functionality.
+
+Modify only frontend/app.py.
+####
+3
+Create tools/satellite_tool.py.
+
+Do not modify existing tools.
+
+Simulate
+
+NDVI
+
+Vegetation Index
+
+Moisture Index
+
+Crop Health Score
+
+Return JSON.
+
+No frontend changes.
+##4
+Update tools/crop_tool.py.
+
+Do not modify frontend.
+
+Use
+
+soil.csv
+
+weather_tool
+
+satellite_tool
+
+Gemini
+
+Return
+
+Best crop
+
+Alternative crops
+
+Confidence
+
+Reason
+
+Yield
+
+Profit
+
+Government schemes
+
+Return JSON only.
+##
+5
+Create tools/advisory_tool.py.
+
+Input
+
+Weather
+
+Sensor
+
+Output
+
+Dry spell risk
+
+Heat stress
+
+Flood warning
+
+Irrigation schedule
+
+Fertilizer timing
+
+Return JSON.
+
+Do not modify frontend.
+##6
+Create tools/sensor_tool.py.
+
+Simulate
+
+Soil Moisture
+
+Soil Temperature
+
+pH
+
+Nitrogen
+
+Potassium
+
+Phosphorus
+
+Return JSON.
+##7
+Create tools/sms_tool.py.
+
+Create Twilio integration.
+
+If credentials unavailable
+
+Mock SMS.
+
+Functions
+
+Weather Alert
+
+Disease Alert
+
+Dry Spell Alert
+
+Scheme Alert
+#8
+Create SQLite database.
+
+Every disease detection should save
+
+Farmer
+
+Village
+
+Image
+
+Disease
+
+Confidence
+
+Treatment
+
+Timestamp
+
+Status
+
+Do not change frontend.
+
+Only modify vision_tool.py.
+#9
+Create ticket database.
+
+Fields
+
+Ticket ID
+
+Farmer
+
+Village
+
+Disease
+
+Status
+
+Assigned Expert
+
+History
+
+Use SQLite.
+#10
+Create new Streamlit page
+
+Expert Dashboard
+
+Show
+
+Pending Tickets
+
+Resolved
+
+Image
+
+Diagnosis
+
+Allow
+
+Resolve Ticket
+
+Comments
+#11
+Improve dashboard.
+
+Show
+
+Weather
+
+Alerts
+
+Disease Count
+
+Pending Tickets
+
+Market Prices
+
+Schemes
+
+Voice Assistant
+
+Do not change backend.
+#12
+Add charts
+
+Rainfall
+
+Temperature
+
+Disease Trend
+
+Market Trend
+
+Use Plotly.
+#13
+Create notification center.
+
+Weather
+
+Disease
+
+Market
+
+Schemes
+
+Dry Spell
+#14
+Support
+
+English
+
+Hindi
+
+Marathi
+
+Telugu
+
+Translate all responses.
+
+Keep existing router.
