@@ -13,7 +13,7 @@ from tools.profile_tool import load_profile
 from tools.memory_tool import save_farmer
 from tools.weather_tool import get_weather, get_hourly_forecast
 from tools.market_tool import market_price
-
+from tools.ticket_tool import create_ticket
 
 
 from krishi_ai.router import IntelligentRouter
@@ -488,9 +488,15 @@ elif page == "🌱 Crop Recommendation":
 
 elif page == "📷 Disease Detection":
 
+    from tools.ticket_tool import create_ticket
+
     st.title("📷 Crop Disease Detection")
 
     st.write("Upload a clear photo of the affected crop leaf.")
+
+    # Initialize session state
+    if "disease_result" not in st.session_state:
+        st.session_state.disease_result = None
 
     uploaded = st.file_uploader(
         "Choose Leaf Image",
@@ -502,8 +508,10 @@ elif page == "📷 Disease Detection":
         st.image(
             uploaded,
             caption="Uploaded Leaf",
-            use_container_width=True
+            width="stretch"
         )
+
+        # ---------------- Analyze ----------------
 
         if st.button("🔍 Analyze Leaf"):
 
@@ -515,43 +523,46 @@ elif page == "📷 Disease Detection":
                 ) as tmp:
 
                     tmp.write(uploaded.getbuffer())
-
                     image_path = tmp.name
 
-                result = analyze_leaf(image_path)
+                st.session_state.disease_result = analyze_leaf(image_path)
 
             st.success("✅ Analysis Complete")
 
-            st.markdown(result)
+        # ---------------- Show Result ----------------
+
+        if st.session_state.disease_result:
+
+            st.markdown(st.session_state.disease_result)
 
             st.divider()
 
+            # ---------------- Create Ticket ----------------
+
             if st.button("📞 Send to Rythu Seva Kendra"):
 
-             with st.spinner("Creating RSK ticket..."):
+                with st.spinner("Creating RSK Ticket..."):
 
-                 ticket_response = create_ticket(
+                    ticket_response = create_ticket(
                         farmer="Farmer",
-                        problem=result
-                        )
-
-
-            st.success("✅ Ticket Created Successfully")
-
-            st.write(
-                    "Your crop disease report has been forwarded to Rythu Seva Kendra."
+                        problem=st.session_state.disease_result
                     )
 
+                st.success("✅ Ticket Created Successfully")
 
-            st.info(
-                     f"""
-                         🎫 Ticket ID: {ticket_response['ticket_id']}
+                st.write(
+                    "Your crop disease report has been forwarded to the nearest Rythu Seva Kendra."
+                )
 
-                             Status: {ticket_response['status']}
+                st.info(
+                    f"""
+🎫 Ticket ID: {ticket_response['ticket_id']}
 
-                             Created At: {ticket_response['created_at']}
-                      """
-                    )
+Status: {ticket_response['status']}
+
+Created At: {ticket_response['created_at']}
+"""
+                )
 # =====================================================
 # MARKET PAGE
 # =====================================================
