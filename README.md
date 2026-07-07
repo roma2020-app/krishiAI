@@ -1,6 +1,13 @@
 # 🌾 Krishi AI
 ### AI-Powered Agricultural Intelligence Platform for Small & Marginal Farmers
 
+## 🚀 Live Demo
+
+Experience the live application here:
+
+🔗 **Krishi AI **  
+https://krishiaibyroma.streamlit.app/
+
 # 📖 Overview
 
 Krishi AI is an intelligent agriculture platform that helps farmers make informed decisions using **Generative AI**, **Google ADK**, and multiple AI-powered tools.
