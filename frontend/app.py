@@ -530,7 +530,10 @@ elif page == "📷 Disease Detection":
 
              with st.spinner("Creating RSK ticket..."):
 
-                ticket_response = create_rsk_ticket(result)
+                 ticket_response = create_ticket(
+                        farmer="Farmer",
+                        problem=result
+                        )
 
 
             st.success("✅ Ticket Created Successfully")
