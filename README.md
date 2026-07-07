@@ -370,8 +370,26 @@ Farmer
 
 # 📸 Screenshots
 
-./images/screenshot.png
-./images/Crop_Recommendation.png
+<h2 align="center">📸 Application Screenshots</h2>
+
+<p align="center">
+<img src="images/screenshot.png" width="45%">
+<img src="images/Crop_Recommendation.png" width="45%">
+</p>
+
+<p align="center">
+<img src="images/weather.png" width="45%">
+<img src="images/Crop_disease_detection.png" width="45%">
+</p>
+
+<p align="center">
+<img src="images/Market_price.png" width="45%">
+<img src="images/Govt.Scheme.png" width="45%">
+</p>
+
+<p align="center">
+<img src="images/ExpertAdvice.png" width="45%">
+</p>
 
 
 ```
