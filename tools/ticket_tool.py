@@ -1,11 +1,14 @@
 import sqlite3
+import tempfile
+import os
 from datetime import datetime
 
+DB_PATH = os.path.join(tempfile.gettempdir(), "app.db")
+
 conn = sqlite3.connect(
-    "database/app.db",
+    DB_PATH,
     check_same_thread=False
 )
-
 cursor = conn.cursor()
 
 cursor.execute("""
