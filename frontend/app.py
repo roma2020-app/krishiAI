@@ -609,9 +609,96 @@ elif page == "💰 Market Prices":
 
 elif page == "🏛 Government Schemes":
 
-    st.title("🏛 Government Schemes")
+    st.title("🏛 Government Agricultural Schemes")
+    st.caption("Browse, view details, and apply for central and state agriculture welfare schemes.")
 
-    st.info("Coming in next step.")
+    # Load Farmer Profile to offer personalized recommendations
+    profile_data = load_profile("farmer1")
+    if not isinstance(profile_data, dict):
+        village_val = "Nashik"
+        crop_val = "Soybean"
+        soil_val = "Black"
+    else:
+        village_val = profile_data.get("Village") or "Nashik"
+        crop_val = profile_data.get("Crop") or "Soybean"
+        soil_val = profile_data.get("Soil") or "Black"
+
+    st.info(f"💡 **Personalized for you:** Based on your farm profile in `{village_val}` growing `{crop_val}` on `{soil_val}` soil, we recommend checking out the **Soil Health Card** and **PMFBY** crop insurance schemes.")
+
+    # Get schemes list from the tool
+    from tools.scheme_tool import government_scheme
+    scheme_res = government_scheme("")
+    schemes = scheme_res.get("schemes", ["PM-KISAN", "PMFBY", "Soil Health Card", "Micro Irrigation"])
+
+    # Detailed info for schemes
+    scheme_details = {
+        "PM-KISAN": {
+            "title": "🌾 PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+            "desc": "Direct income support of ₹6,000 per year in three equal installments to all landholding farmer families across India to help cover farming expenses.",
+            "benefits": ["₹6,000 per year directly transferred to bank account.", "Distributed as ₹2,000 every 4 months.", "Fully government funded."],
+            "eligibility": "All landholding farmer families with cultivable land in their name.",
+            "docs": ["Aadhaar Card", "Land Ownership Papers / Khata", "Bank Account Passbook"]
+        },
+        "PMFBY": {
+            "title": "🌧 PMFBY (Pradhan Mantri Fasal Bima Yojana)",
+            "desc": "A government-sponsored crop insurance scheme that integrates multiple stakeholders to protect farmers from crop loss caused by natural calamities, pests, and disease.",
+            "benefits": ["Low premium rates (1.5% to 5% max).", "Full insured sum payout for crop failures.", "Covers localized risks like hailstorm, inundation, and landslides."],
+            "eligibility": "All farmers growing notified crops in notified areas, including sharecroppers and tenant farmers.",
+            "docs": ["Sowing Certificate", "Land Registry Records / Land Lease Agreement", "Aadhaar Card & Bank Details"]
+        },
+        "Soil Health Card": {
+            "title": "🧪 Soil Health Card Scheme",
+            "desc": "Provides soil cards indicating nutrient status of individual farm holdings, advising farmers on proper dosage of nutrients and fertilizers needed to maintain soil health.",
+            "benefits": ["Free soil testing service.", "Personalized dosage advice for 12 major nutrients.", "Helps increase crop yield and reduce chemical costs by 15-20%."],
+            "eligibility": "All active landholding farmers across India.",
+            "docs": ["Soil Sample Details", "Farmer Identification Card", "Land Survey Number"]
+        },
+        "Micro Irrigation": {
+            "title": "💧 Micro Irrigation Fund (Per Drop More Crop)",
+            "desc": "Promotes micro-irrigation technologies (drip and sprinkler systems) to maximize water-use efficiency at the farm level and reduce irrigation labor.",
+            "benefits": ["Up to 55% subsidy for small and marginal farmers.", "Interest subvention on loans for micro-irrigation equipment.", "Saves up to 40% water and reduces weed growth."],
+            "eligibility": "Farmers with active cultivable land installing verified drip/sprinkler setups.",
+            "docs": ["Vendor Quotation & Design Layout", "Electricity Bill / Pump Connection Details", "Land Ownership Certificate"]
+        }
+    }
+
+    # Render schemes inside cards
+    for s_id in schemes:
+        details = scheme_details.get(s_id)
+        if not details:
+            continue
+
+        with st.container(border=True):
+            st.subheader(details["title"])
+            st.write(details["desc"])
+            
+            c1, c2 = st.columns(2)
+            with c1:
+                st.write("**🎁 Key Benefits:**")
+                for b in details["benefits"]:
+                    st.write(f"- {b}")
+            with c2:
+                st.write(f"**👥 Eligibility:** {details['eligibility']}")
+                st.write("**📁 Required Documents:**")
+                st.write(", ".join(details["docs"]))
+
+            # Form to apply
+            with st.expander(f"📝 Apply for {s_id}"):
+                with st.form(key=f"apply_form_{s_id}"):
+                    st.write("Fill in your details to submit your application directly to the portal.")
+                    f_name = st.text_input("Full Name (as in Aadhaar)", value="Farmer")
+                    aadhaar = st.text_input("Aadhaar Number (12 digits)", max_chars=12, placeholder="XXXX-XXXX-XXXX")
+                    bank_acc = st.text_input("Bank Account Number", placeholder="Enter Account No")
+                    if st.form_submit_button("Submit Application"):
+                        if len(aadhaar) < 12 or not aadhaar.isdigit():
+                            st.error("Please enter a valid 12-digit Aadhaar number.")
+                        elif not bank_acc:
+                            st.error("Please enter a valid Bank Account Number.")
+                        else:
+                            # Generate a mock application ID
+                            import random
+                            app_id = f"K-SCH-{random.randint(10000, 99999)}"
+                            st.success(f"🎉 Application Submitted Successfully! Your tracking ID is **{app_id}**.")
 
 # =====================================================
 # EXPERT PAGE
